@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Docker Compose · Hexo</title><meta name="description" content="Docker Compose - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://example.com/atom.xml" title="Hexo"><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Docker Compose</h1><div class="post-info">Aug 1, 2019</div><div class="post-content"><h3 id="Docker-Compose-简介"><a href="#Docker-Compose-简介" class="headerlink" title="Docker Compose 简介"></a>Docker Compose 简介</h3><p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。使用 Compose，可以使用YAML文件来配置应用程序的服务。然后，使用一个命令，从配置文件创建并启动所有服务。</p>
+<hr>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">docker-compose up</td>
+<td align="center">创建、启动容器</td>
+</tr>
+<tr>
+<td align="center">docker-compose down</td>
+<td align="center">停止并删除容器</td>
+</tr>
+<tr>
+<td align="center">docker-compose start</td>
+<td align="center">启动容器</td>
+</tr>
+<tr>
+<td align="center">docker-compose stop</td>
+<td align="center">停止容器</td>
+</tr>
+<tr>
+<td align="center">docker-compose ps</td>
+<td align="center">查看容器状态</td>
+</tr>
+<tr>
+<td align="center">docker-compose kill</td>
+<td align="center">kill 掉运行的容器</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Compose-file"><a href="#Compose-file" class="headerlink" title="Compose file"></a>Compose file</h3><ul>
+<li>默认是名字为<code>docker-compose.yml</code>的文件</li>
+<li>如果是自定义的配置文件<code>myapp-compose.yml</code>，使用时需要用<code>-f</code>参数指定文件</li>
+</ul>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><ul>
+<li><p>这个服务要使用 Python 环境，同时程序需要依赖 Redis，配置文件可以这么写：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">&#x27;3&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: python:<span class="number">3.7</span>.<span class="number">4</span></span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">&quot;8080:5001&quot;</span></span><br><span class="line">    depends_on:</span><br><span class="line">      - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">指令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">version</td>
+<td align="center">使用compose配置文件的版本</td>
+</tr>
+<tr>
+<td align="center">services</td>
+<td align="center">配置的服务</td>
+</tr>
+<tr>
+<td align="center">web/redis</td>
+<td align="center">服务名称(自定义)</td>
+</tr>
+<tr>
+<td align="center">image</td>
+<td align="center">启动容器使用的镜像</td>
+</tr>
+<tr>
+<td align="center">ports</td>
+<td align="center">服务映射的端口</td>
+</tr>
+<tr>
+<td align="center">depends_on</td>
+<td align="center">服务所依赖的其他服务</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>更多指令可以参考 <a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/"><em>官方文档</em></a></p>
+</li>
+</ul>
+<hr>
+<h3 id="通过-Docker-Compose-运行容器"><a href="#通过-Docker-Compose-运行容器" class="headerlink" title="通过 Docker Compose 运行容器"></a>通过 Docker Compose 运行容器</h3><ul>
+<li>创建并启动容器(<code>-d</code>参数为后台模式)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up -d</span><br><span class="line">Creating docker-compose_web_1 ... <span class="keyword">done</span></span><br><span class="line">Creating docker-compose_redis_1 ... <span class="keyword">done</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose ps</span><br><span class="line">          Name              Command         State        Ports</span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line">docker-compose_web_1        ...              UP   0.0.0.0:8080-&gt;5001/tcp</span><br><span class="line">docker-compose_redis_1      ...              UP</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2021/02/07/c-and-gcc/" class="prev">PREV</a><a href="/2019/07/31/Docker-%E6%8B%BE%E9%81%97/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://example.com">John Doe</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

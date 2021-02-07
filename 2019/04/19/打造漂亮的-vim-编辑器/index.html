@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 打造漂亮又好用的 vim 编辑器 · Hexo</title><meta name="description" content="打造漂亮又好用的 vim 编辑器 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://example.com/atom.xml" title="Hexo"><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">打造漂亮又好用的 vim 编辑器</h1><div class="post-info">Apr 19, 2019</div><div class="post-content"><p>安装一些插件使 vim 更好用</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pathogen.vim</td>
+<td>自动加载<code>～/.vim/bundle</code>下的插件</td>
+</tr>
+<tr>
+<td>supertab</td>
+<td>全局字符<code>tab</code>补全</td>
+</tr>
+<tr>
+<td>jedi-vim</td>
+<td>Python 语法补全插件</td>
+</tr>
+<tr>
+<td>lightline.vim</td>
+<td>下方状态栏显示插件</td>
+</tr>
+<tr>
+<td>nerdtree</td>
+<td>侧边栏目录显示插件</td>
+</tr>
+<tr>
+<td>vim-gitgutter</td>
+<td>Git文件状态显示插件</td>
+</tr>
+<tr>
+<td>vim-multiple-cursors</td>
+<td>多行编辑插件(like sublime)</td>
+</tr>
+<tr>
+<td>duoduo.vim</td>
+<td>颜色主题</td>
+</tr>
+<tr>
+<td>snazzy.vim</td>
+<td>颜色主题</td>
+</tr>
+</tbody></table>
+<p>安装插件后编辑<code>~/.vimrc</code>文件加入以下内容:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="keyword">on</span></span><br><span class="line"><span class="keyword">set</span> tabstop:<span class="number">4</span></span><br><span class="line"><span class="keyword">set</span> expandtab</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">number</span></span><br><span class="line"><span class="keyword">set</span> hlsearch</span><br><span class="line"><span class="keyword">colorscheme</span> duoduo</span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; pathogen</span></span><br><span class="line"><span class="keyword">execute</span> pathogen#infect()</span><br><span class="line"><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; jedi-vim</span></span><br><span class="line"><span class="keyword">autocmd</span> FileType <span class="keyword">python</span> <span class="keyword">setlocal</span> completeopt-=preview</span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; nerdtree</span></span><br><span class="line"><span class="keyword">map</span> <span class="symbol">&lt;C-n&gt;</span> :NERDTreeToggle<span class="symbol">&lt;CR&gt;</span></span><br><span class="line"><span class="keyword">autocmd</span> StdinReadPre * <span class="keyword">let</span> <span class="variable">s:std_in</span>=<span class="number">1</span></span><br><span class="line"><span class="keyword">autocmd</span> VimEnter * <span class="keyword">if</span> <span class="built_in">argc</span>() == <span class="number">1</span> &amp;&amp; <span class="built_in">isdirectory</span>(<span class="built_in">argv</span>()[<span class="number">0</span>]) &amp;&amp; !exists(<span class="string">&quot;s:std_in&quot;</span>) | <span class="keyword">exe</span> <span class="string">&#x27;NERDTree&#x27;</span> <span class="built_in">argv</span>()[<span class="number">0</span>] | <span class="keyword">wincmd</span> <span class="keyword">p</span> | <span class="keyword">ene</span> | <span class="keyword">exe</span> <span class="string">&#x27;cd &#x27;</span>.<span class="built_in">argv</span>()[<span class="number">0</span>] | <span class="keyword">endif</span></span><br><span class="line"><span class="string">&quot; autocmd bufenter * if (winnr(&quot;</span>$<span class="string">&quot;) == 1 &amp;&amp; exists(&quot;</span><span class="variable">b:NERDTree</span><span class="comment">&quot;) &amp;&amp; b:NERDTree.isTabTree()) | q | endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&quot; supertab</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:SuperTabDefaultCompletionType</span> = <span class="string">&quot;&lt;c-n&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">autocmd</span> FileType html <span class="keyword">setlocal</span> <span class="keyword">ts</span>=<span class="number">2</span> <span class="keyword">sts</span>=<span class="number">2</span> <span class="keyword">sw</span>=<span class="number">2</span></span><br><span class="line"><span class="keyword">autocmd</span> FileType <span class="keyword">ruby</span> <span class="keyword">setlocal</span> <span class="keyword">ts</span>=<span class="number">2</span> <span class="keyword">sts</span>=<span class="number">2</span> <span class="keyword">sw</span>=<span class="number">2</span></span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/07/31/Docker-%E6%8B%BE%E9%81%97/" class="prev">PREV</a><a href="/2018/07/18/XEN-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://example.com">John Doe</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
